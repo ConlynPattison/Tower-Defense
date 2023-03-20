@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public Transform target;
+    private Transform _target;
+    private Enemy _targetEnemy;
     
     [Header("General")]
     public float range = 15f;
@@ -14,6 +15,10 @@ public class Turret : MonoBehaviour
 
     [Header("Use Laser")]
     public bool useLaser = false;
+
+    public int damageOverTime = 30;
+    public float slowPct = 0.5f;
+    
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
@@ -51,17 +56,18 @@ public class Turret : MonoBehaviour
 
         if (nearestEnemy != null && shortestDistance <= range)
         {
-            target = nearestEnemy.transform;
+            _target = nearestEnemy.transform;
+            _targetEnemy = nearestEnemy.GetComponent<Enemy>();
         }
         else
         {
-            target = null;
+            _target = null;
         }
     }
 
     private void Update()
     {
-        if (target == null)
+        if (_target == null)
         {
             if (useLaser && lineRenderer.enabled)
             {
@@ -93,7 +99,7 @@ public class Turret : MonoBehaviour
 
     void LockOnTarget()
     {
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = _target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -101,6 +107,9 @@ public class Turret : MonoBehaviour
 
     void Laser()
     {
+        _targetEnemy.TakeDamage(damageOverTime * Time.deltaTime);
+        _targetEnemy.Slow(slowPct);
+        
         if (!lineRenderer.enabled)
         {
             lineRenderer.enabled = true;
@@ -109,11 +118,11 @@ public class Turret : MonoBehaviour
         }
         
         lineRenderer.SetPosition(0, firePoint.position);
-        lineRenderer.SetPosition(1, target.position);
+        lineRenderer.SetPosition(1, _target.position);
 
-        Vector3 dir = firePoint.position - target.position;
+        Vector3 dir = firePoint.position - _target.position;
 
-        impactEffect.transform.position = target.position + dir.normalized;
+        impactEffect.transform.position = _target.position + dir.normalized;
 
         impactEffect.transform.rotation = Quaternion.LookRotation(dir);
 
@@ -125,7 +134,7 @@ public class Turret : MonoBehaviour
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         
         if (bullet != null)
-            bullet.Seek(target);
+            bullet.Seek(_target);
     }
     
     private void OnDrawGizmosSelected()
