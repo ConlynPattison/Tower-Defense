@@ -6249,10 +6249,10 @@ MonoBehaviour:
     prefab: {fileID: 5349825414078957178, guid: 8d6938d87b43bbf46afddfe79be62c3c, type: 3}
     cost: 100
   missileLauncher:
-    prefab: {fileID: 6408216832633548366, guid: 2e002e92ea42a2f489a911c25078b0db, type: 3}
+    prefab: {fileID: 7160441421120956422, guid: 2e002e92ea42a2f489a911c25078b0db, type: 3}
     cost: 250
   laserBeamer:
-    prefab: {fileID: 6847701092877959533, guid: ad3df918e49f472418d52df4b3e09c9d, type: 3}
+    prefab: {fileID: 2077093374257542608, guid: ad3df918e49f472418d52df4b3e09c9d, type: 3}
     cost: 350
 --- !u!1001 &778911567
 PrefabInstance:
