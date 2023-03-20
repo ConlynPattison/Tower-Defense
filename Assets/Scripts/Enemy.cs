@@ -5,12 +5,38 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 10f;
 
+    public int health = 100;
+
+    public int value = 50;
+
+    public GameObject deathEffect;
+    
     private Transform _target;
     private int _wavepointIndex = 0;
 
     private void Start()
     {
         _target = Waypoints.points[0];
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {    
+        PlayerStats.Money += value;
+
+        GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+        
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -28,11 +54,17 @@ public class Enemy : MonoBehaviour
     {
         if (_wavepointIndex >= Waypoints.points.Length - 1)
         {
-            Destroy(gameObject);
+            EndPath();
             return;
         }
 
         _wavepointIndex++;
         _target = Waypoints.points[_wavepointIndex];
+    }
+
+    private void EndPath()
+    {
+        PlayerStats.Lives--;
+        Destroy(gameObject);
     }
 }
