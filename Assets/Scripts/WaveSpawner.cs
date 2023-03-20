@@ -7,7 +7,7 @@ public class WaveSpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform spawnPoint;
     public TextMeshProUGUI waveCountdownText;
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 20f;
     
     private float _countDown = 2f;
     private int _waveIndex = 0;
@@ -22,7 +22,9 @@ public class WaveSpawner : MonoBehaviour
 
         _countDown -= Time.deltaTime;
 
-        waveCountdownText.text = Mathf.Ceil(_countDown).ToString();
+        _countDown = Mathf.Clamp(_countDown, 0f, Mathf.Infinity);
+
+        waveCountdownText.text = $"{_countDown:00.00}";
     }
 
     IEnumerator SpawnWave()

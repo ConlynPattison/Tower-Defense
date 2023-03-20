@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
+    public Color notEnoughMoneyColor;
     public Vector3 positionOffset;
 
     [Header("Optional")]
@@ -52,8 +53,11 @@ public class Node : MonoBehaviour
             
         if (!_buildManager.CanBuild)
             return;
-        
-        _renderer.material.color = hoverColor;
+
+        if (_buildManager.CanAfford)
+            _renderer.material.color = hoverColor;
+        else
+            _renderer.material.color = notEnoughMoneyColor;
     }
 
     private void OnMouseExit()
