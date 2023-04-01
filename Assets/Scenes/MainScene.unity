@@ -1771,6 +1771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildEffect: {fileID: 4798479892159644969, guid: aca6e6bc4f0708f46b9d25477f326b71, type: 3}
+  sellEffect: {fileID: 4798479892159644969, guid: 0b807285e22cdfc4c8ab59c3b01f1102, type: 3}
   nodeUI: {fileID: 1100763834}
 --- !u!114 &210185518
 MonoBehaviour:
@@ -6538,13 +6539,13 @@ MonoBehaviour:
   missileLauncher:
     prefab: {fileID: 7160441421120956422, guid: 2e002e92ea42a2f489a911c25078b0db, type: 3}
     cost: 250
-    upgradedPrefab: {fileID: 0}
-    upgradeCost: 0
+    upgradedPrefab: {fileID: 7160441421120956422, guid: 12866d3e215ad4a4997c300aced19604, type: 3}
+    upgradeCost: 150
   laserBeamer:
     prefab: {fileID: 2077093374257542608, guid: ad3df918e49f472418d52df4b3e09c9d, type: 3}
     cost: 350
-    upgradedPrefab: {fileID: 0}
-    upgradeCost: 0
+    upgradedPrefab: {fileID: 2077093374257542608, guid: 43f468c995dd11e4e85977e161a52c5f, type: 3}
+    upgradeCost: 250
 --- !u!1001 &778911567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9049,6 +9050,7 @@ MonoBehaviour:
   ui: {fileID: 1782414277}
   upgradeCost: {fileID: 1469343224}
   upgradeButton: {fileID: 1203773421}
+  sellAmount: {fileID: 2024326883}
 --- !u!1001 &1109582628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14561,7 +14563,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1568699483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1100763834}
+        m_TargetAssemblyTypeName: NodeUI, Assembly-CSharp
+        m_MethodName: Sell
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1568699483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18525,7 +18539,7 @@ GameObject:
   - component: {fileID: 2024326884}
   - component: {fileID: 2024326883}
   m_Layer: 0
-  m_Name: Cost
+  m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

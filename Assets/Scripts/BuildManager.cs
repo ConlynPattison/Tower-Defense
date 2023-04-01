@@ -20,6 +20,7 @@ public class BuildManager : MonoBehaviour
     }
 
     public GameObject buildEffect;
+    public GameObject sellEffect;
 
     private TurretBlueprint _turretToBuild;
     private Node _selectedNode;

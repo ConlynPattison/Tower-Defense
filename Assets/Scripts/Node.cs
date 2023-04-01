@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 public class Node : MonoBehaviour
 {
@@ -80,7 +79,7 @@ public class Node : MonoBehaviour
         Destroy(turret);
         
         // Build a new turret (upgraded)
-        GameObject turretInstance = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+        GameObject turretInstance = Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
         turret = turretInstance;
 
         GameObject effect = Instantiate(_buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
@@ -89,6 +88,19 @@ public class Node : MonoBehaviour
         isUpgraded = true;
         
         Debug.Log("Turret Upgraded!");
+    }
+
+    public void SellTurret()
+    {
+        PlayerStats.Money += turretBlueprint.GetSellAmount();
+        
+        // Cool effect here
+        GameObject effect = Instantiate(_buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+        
+        Destroy(turret);
+        turretBlueprint = null;
+        isUpgraded = false;
     }
 
     private void OnMouseEnter()
