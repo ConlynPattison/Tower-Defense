@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,12 @@ public class WaveSpawner : MonoBehaviour
     private float _countDown = 2f;
 
     public GameManager gameManager;
-    
+
+    private void Start()
+    {
+        EnemiesAlive = 0;
+    }
+
     private void Update()
     {
         if (EnemiesAlive > 0)
