@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class Enemy : MonoBehaviour
     public float startSpeed = 10f;
     [HideInInspector]
     public float speed;
+
+    private NavMeshAgent _navMeshAgent;
 
     [Header("Attributes")]
     public int worth = 50;
@@ -28,6 +31,7 @@ public class Enemy : MonoBehaviour
     {
         speed = startSpeed;
         health = startHealth;
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     public void TakeDamage(float amount)
@@ -44,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     public void Slow(float pct)
     {
-        speed = startSpeed * (1f - pct);
+        _navMeshAgent.speed = startSpeed * (1f - pct);
     }
 
     private void Die()
